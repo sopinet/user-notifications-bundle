@@ -1,0 +1,18 @@
+parameters:
+#    sopinet_user_notifications.example.class: Sopinet\Bundle\UserNotificationsBundle\Example
+
+services:
+#    sopinet_user_notifications.example:
+#        class: %sopinet_user_notifications.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+services:
+    sopinetusernotifications.twig.base_extension:
+        class: Sopinet\Bundle\UserNotificationsBundle\Twig\BaseExtension
+        arguments: ['@service_container']
+        tags:
+            - { name: twig.extension }
+            
+    sopinet_user_notification:
+       class: Sopinet\Bundle\UserNotificationsBundle\Service\NotificationHelper
+       arguments: ["@service_container"]
