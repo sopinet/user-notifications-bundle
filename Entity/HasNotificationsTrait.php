@@ -1,4 +1,5 @@
 <?php
+namespace Sopinet\Bundle\UserNotificationsBundle\Entity;
 /**
  * Created by PhpStorm.
  * User: hud
