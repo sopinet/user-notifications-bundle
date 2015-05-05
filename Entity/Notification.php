@@ -196,10 +196,10 @@ class Notification
     /**
      * Set user
      *
-     * @param \Sopinet\UserBundle\Entity\SopinetUserExtend $user
+     * @param
      * @return Notification
      */
-    public function setUser(\Sopinet\UserBundle\Entity\SopinetUserExtend $user = null)
+    public function setUser(Application\Sopinet\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
     
@@ -209,7 +209,7 @@ class Notification
     /**
      * Get user
      *
-     * @return \Sopinet\UserBundle\Entity\SopinetUserExtend 
+     * @return Application\Sopinet\UserBundle\Entity\User
      */
     public function getUser()
     {
