@@ -50,6 +50,12 @@ class Notification
      * @ORM\Column(name="email", type="boolean")
      */
     protected $email;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Application\Sopinet\UserBundle\Entity\User", inversedBy="notifications")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="CASCADE")
+     */
+    protected $user;
     
     /**
      * @ORM\Column(name="link", type="string", length=255, nullable=true)
