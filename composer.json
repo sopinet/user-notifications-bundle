@@ -1,6 +1,6 @@
 {
     "name": "sopinet/user-notifications-bundle",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "description": "Symfony2 Bundle - Symple system for user notifications",
     "keywords": ["notifications", "user", "symfony2", "bundle"],
     "type": "symfony-bundle",
