@@ -52,7 +52,7 @@ class Notification
     protected $email;
     
     /**
-     * @ORM\ManyToOne(targetEntity="\Sopinet\UserBundle\Entity\SopinetUserExtend", inversedBy="notifications")
+     * @ORM\ManyToOne(targetEntity="Application\Sopinet\UserBundle\Entity\User", inversedBy="notifications")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="CASCADE") 
      */
     protected $user;
