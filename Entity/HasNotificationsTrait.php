@@ -32,7 +32,7 @@ trait HasNotificationsTrait
 
     public function setNotifications(ArrayCollection $notifications)
     {
-        $this->uploadedDocuments = $notifications;
+        $this->notifications = $notifications;
 
         return $this;
     }
