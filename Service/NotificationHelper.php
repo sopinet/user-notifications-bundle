@@ -24,14 +24,7 @@ class NotificationHelper {
 		if ($user == null) {
 			$user = $this->_container->get('security.context')->getToken()->getUser();
 		}
-		$userextend = $user->getSopinetUserExtend();
-		if ($userextend == null) {
-			$userextend = new \Sopinet\UserBundle\Entity\SopinetUserExtend();
-			$userextend->setUser($user);
-			$em->persist($userextend);
-			$em->flush();
-		}
-		return $userextend;
+		return $user;
 	}
 
 	/**
