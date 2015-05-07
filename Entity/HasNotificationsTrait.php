@@ -1,5 +1,6 @@
 <?php
 namespace Sopinet\Bundle\UserNotificationsBundle\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
 /**
  * Created by PhpStorm.
  * User: hud
