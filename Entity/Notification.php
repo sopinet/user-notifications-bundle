@@ -200,7 +200,7 @@ class Notification
      * @param
      * @return Notification
      */
-    public function setUser(Application\Sopinet\UserBundle\Entity\User $user = null)
+    public function setUser(\Application\Sopinet\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
     
@@ -210,7 +210,7 @@ class Notification
     /**
      * Get user
      *
-     * @return Application\Sopinet\UserBundle\Entity\User
+     * @return \Application\Sopinet\UserBundle\Entity\User
      */
     public function getUser()
     {
