@@ -7,7 +7,7 @@ use Doctrine\ORM\Event\OnFlushEventArgs;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
  
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Sopinet\Bundle\UserNotificationsBundle\Entity\NotificationRepository")
  * @ORM\Table(name="user_notification")
  * @DoctrineAssert\UniqueEntity("id")
  */
