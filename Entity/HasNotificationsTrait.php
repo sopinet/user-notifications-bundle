@@ -30,7 +30,7 @@ trait HasNotificationsTrait
         return $this->notifications;
     }
 
-    public function setNotifications(ArrayCollection $notifications)
+    public function setNotifications($notifications)
     {
         $this->notifications = $notifications;
 
