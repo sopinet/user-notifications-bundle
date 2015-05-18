@@ -25,6 +25,7 @@ class NotificationAdmin extends Admin
             ->add('email')
             ->add('link')
             ->add('image')
+            ->add('user')
             ->add('createdAt')
             ->add('updatedAt')
         ;
@@ -45,6 +46,7 @@ class NotificationAdmin extends Admin
             ->add('email')
             ->add('link')
             ->add('image')
+            ->add('user')
             ->add('createdAt')
             ->add('updatedAt')
             ->add('_action', 'actions', array(
@@ -72,6 +74,7 @@ class NotificationAdmin extends Admin
             ->add('email')
             ->add('link')
             ->add('image')
+            ->add('user')
             ->add('createdAt')
             ->add('updatedAt')
         ;
@@ -92,6 +95,7 @@ class NotificationAdmin extends Admin
             ->add('email')
             ->add('link')
             ->add('image')
+            ->add('user')
             ->add('createdAt')
             ->add('updatedAt')
         ;
