@@ -16,3 +16,9 @@ services:
     sopinet_user_notification:
        class: Sopinet\Bundle\UserNotificationsBundle\Service\NotificationHelper
        arguments: ["@service_container"]
+
+    sopinet_user_notifications.admin.notification:
+        class: Sopinet\Bundle\UserNotificationsBundle\Admin\NotificationAdmin
+        arguments: [~, Sopinet\Bundle\UserNotificationsBundle\Entity\Notification, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Notification}
