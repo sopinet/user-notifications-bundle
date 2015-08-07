@@ -1,15 +1,18 @@
-<?php 
+<?php
 namespace Sopinet\Bundle\UserNotificationsBundle\Entity;
 
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineAssert;
 use Doctrine\ORM\Event\OnFlushEventArgs;
 use Knp\DoctrineBehaviors\Model as ORMBehaviors;
- 
+use Symfony\Component\Validator\Constraints\Type;
+
 /**
  * @ORM\Entity(repositoryClass="Sopinet\Bundle\UserNotificationsBundle\Entity\NotificationRepository")
  * @ORM\Table(name="user_notification")
  * @DoctrineAssert\UniqueEntity("id")
+ * @ORM\HasLifecycleCallbacks
  */
 class Notification
 {
@@ -20,7 +23,7 @@ class Notification
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
-    
+
     /**
      * @ORM\Column(name="action", type="string", length=100)
      */
@@ -30,17 +33,17 @@ class Notification
      * @ORM\Column(name="objects", type="string", length=500, nullable=true)
      */
     protected $objects;
-    
+
     /**
      * @ORM\Column(name="objects_id", type="string", length=100, nullable=true)
      */
-    protected $objects_id;    
-    
+    protected $objects_id;
+
     /**
      * @ORM\Column(name="view", type="boolean")
      */
     protected $view;
-    
+
     /**
      * @ORM\Column(name="view_complete", type="boolean", nullable=true)
      */
@@ -57,22 +60,30 @@ class Notification
      */
     protected $user;
 
-    
+
     /**
      * @ORM\Column(name="link", type="string", length=255, nullable=true)
      */
     protected $link;
 
-    
+
     /**
      * @ORM\Column(name="image", type="string", length=255, nullable=true)
      */
     protected $image;
 
     /**
+     * @var objectsData
+     *
+     * @ORM\Column(name="objectsData", type="object")
+     * @Type("stdClass")
+     */
+    protected $objectsData;
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -88,14 +99,14 @@ class Notification
     public function setAction($action)
     {
         $this->action = $action;
-    
+
         return $this;
     }
 
     /**
      * Get action
      *
-     * @return string 
+     * @return string
      */
     public function getAction()
     {
@@ -111,20 +122,20 @@ class Notification
     public function setObjects($objects)
     {
         $this->objects = $objects;
-    
+
         return $this;
     }
 
     /**
      * Get object
      *
-     * @return integer 
+     * @return integer
      */
     public function getObjects()
     {
         return $this->objects;
     }
-    
+
     /**
      * Set object
      *
@@ -134,10 +145,10 @@ class Notification
     public function setObjectsId($objects_id)
     {
         $this->objects_id = $objects_id;
-    
+
         return $this;
     }
-    
+
     /**
      * Get object
      *
@@ -146,7 +157,7 @@ class Notification
     public function getObjectsId()
     {
         return $this->objects_id;
-    }    
+    }
 
     /**
      * Set view
@@ -157,14 +168,14 @@ class Notification
     public function setView($view)
     {
         $this->view = $view;
-    
+
         return $this;
     }
 
     /**
      * Get view
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getView()
     {
@@ -180,14 +191,14 @@ class Notification
     public function setEmail($email)
     {
         $this->email = $email;
-    
+
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEmail()
     {
@@ -203,7 +214,7 @@ class Notification
     public function setUser(\Application\Sopinet\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
-    
+
         return $this;
     }
 
@@ -216,12 +227,12 @@ class Notification
     {
         return $this->user;
     }
-    
+
     public function getLink()
     {
         return $this->link;
     }
-    
+
     public function setLink($link)
     {
         $this->link = $link;
@@ -274,4 +285,64 @@ class Notification
     {
         return $this->image;
     }
+
+    /**
+     * @ORM\PostPersist
+     * @param LifecycleEventArgs $event
+     */
+    public function postPersist(LifecycleEventArgs $event)
+    {
+        $this->getUser()->addNotification($this);
+        if(count(explode(',',$this->getObjects()))>1){
+            $objectsClassName=explode(',',$this->getObjects());
+            $objectsId=explode(',',$this->getObjectsId());
+            for($i=0;$i<count($objectsClassName);$i++){
+                $this->addObjectsData($event->getObjectManager()->getRepository($objectsClassName[$i])->findOneById($objectsId[$i]));
+            }
+        } else {
+            $this->addObjectsData($event->getObjectManager()->getRepository($this->getObjects())->findOneById($this->getObjectsId()));
+        }
+
+        $event->getObjectManager()->persist($this->getUser());
+        $event->getObjectManager()->persist($this);
+        $event->getObjectManager()->flush();
+    }
+
+
+    /**
+     * Set objectsData
+     *
+     * @param \stdClass $objectsData
+     *
+     * @return Notification
+     */
+    public function setObjectsData($objectsData)
+    {
+        $this->objectsData = $objectsData;
+
+        return $this;
+    }
+
+
+    /**
+     * Get objectsData
+     *
+     * @return \stdClass
+     */
+    public function getObjectsData()
+    {
+        return $this->objectsData;
+    }
+
+    /**
+     * Get objectsData
+     *
+     * @return \stdClass
+     */
+    private function addObjectsData($object)
+    {
+        $this->objectsData[]=$object;
+        return $this;
+    }
+
 }
