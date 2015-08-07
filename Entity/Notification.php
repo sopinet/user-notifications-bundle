@@ -344,5 +344,4 @@ class Notification
         $this->objectsData[]=$object;
         return $this;
     }
-
 }
