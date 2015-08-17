@@ -22,3 +22,9 @@ services:
         arguments: [~, Sopinet\Bundle\UserNotificationsBundle\Entity\Notification, SonataAdminBundle:CRUD]
         tags:
             - {name: sonata.admin, manager_type: orm, group: admin, label: Notification}
+
+    sopinet_notificationbundle.listener.doctrine_event_listener:
+        class: Sopinet\Bundle\UserNotificationsBundle\Listener\DoctrineEventListener
+        arguments: [%sopinet_user_notifications.config%]
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata }

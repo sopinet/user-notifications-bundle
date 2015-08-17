@@ -24,5 +24,6 @@ class SopinetUserNotificationsExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+        $container->setParameter('sopinet_user_notifications.config', $config);
     }
 }

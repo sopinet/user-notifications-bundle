@@ -9,7 +9,7 @@ use Knp\DoctrineBehaviors\Model as ORMBehaviors;
 use Symfony\Component\Validator\Constraints\Type;
 
 /**
- * @ORM\Entity(repositoryClass="Sopinet\Bundle\UserNotificationsBundle\Entity\NotificationRepository")
+ * @ORM\Entity
  * @ORM\Table(name="user_notification")
  * @DoctrineAssert\UniqueEntity("id")
  * @ORM\HasLifecycleCallbacks
